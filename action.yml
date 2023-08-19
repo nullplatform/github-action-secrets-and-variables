@@ -1,0 +1,27 @@
+name: Nullplatform Secrets And Variables
+description: Github Action for fetching Nullplatform application secrets and variables
+inputs:
+  application-id:
+    description: The application id to query build parameters
+    required: true
+  name:
+    description: The parameter name to query
+    required: false
+  api-key:
+    description: The API key required for authentication if not logged in
+    required: false
+runs:
+  using: composite
+  steps:
+    - if: ${{ !env.NULLPLATFORM_ACCESS_TOKEN }}
+      name: Log into nullplatform
+      id: login
+      uses: nullplatform/github-action-login@v1
+      with:
+        api-key: ${{ inputs.api-key }}
+    - name: Get parameters
+      id: get-parameters
+      uses: nullplatform/github-action-parameter@v1
+      with:
+        application-id: ${{ inputs.application-id }}
+        name: ${{ inputs.name }}
