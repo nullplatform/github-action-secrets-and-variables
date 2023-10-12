@@ -62,7 +62,7 @@ jobs:
 
       - name: Fetch Nullplatform Secrets and Variables
         id: fetch-secrets
-        uses: nullplatform/nullplatform-secrets-and-variables-action@v1
+        uses: nullplatform/github-action-secrets-and-variables@v1
         with:
           application-id: your-app-id
           api-key: ${{ secrets.NULLPLATFORM_API_KEY }}
